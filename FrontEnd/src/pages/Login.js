@@ -1,36 +1,31 @@
-import React, { useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../AuthContext";
+
 function Login() {
-  const [Success,SetSuccess] = useState({});
-  const submitHandler = async(e) => {
+  const [Sucess,SetSuccess] = useState(false);
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     const FormDict = {
       Email:data.get("email"),
       Password:data.get("password")
     }
-    const response = await fetch("http://localhost:5000/api/signup", {
-  method: "POST",
-  body: JSON.stringify(FormDict),
-  headers: {
-    "Content-Type": "application/json"
-  }
-});
-
-// Correctly get JSON from the response
-  const responseData = await response.json();  // Use `.json()` instead of `.data.JSON()`
-
-// Logging the message from the response
-  console.log(responseData.message);
-
+    const response = await fetch("http://localhost:5000/api/login",{
+      method:"POST",
+      body:JSON.stringify(FormDict),
+      headers:{
+        "Content-Type":"application/json"
+      }
+    })
     if(!response.ok){
-      SetSuccess(response.message);
+       SetSuccess(false);
     }else{
-      SetSuccess(response.message);
-      toast(responseData.message)
+      SetSuccess(true);
     }
   };
+
   
   return (
     <>
@@ -47,11 +42,11 @@ function Login() {
               alt="Your Company"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Signin to your account
+              Sign-in to your account
             </h2>
-            {Success && <span>Invalid Server Error</span>}
           </div>
-          <form className="mt-8 space-y-6" onSubmit={submitHandler}>
+          {Sucess && <span>Server Error</span>}
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             {/* <input type="hidden" name="remember" defaultValue="true" /> */}
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
@@ -67,7 +62,6 @@ function Login() {
                   className="relative block w-full rounded-t-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Email address"
                 />
-                <ToastContainer/>
               </div>
               <div>
                 <label htmlFor="password" className="sr-only">
@@ -129,6 +123,7 @@ function Login() {
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Don't Have an Account, Please{" "}
+                  <Link to="/register"> Register now </Link>
                 </span>
               </p>
             </div>

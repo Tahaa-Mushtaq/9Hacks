@@ -8,8 +8,8 @@ const navigation = [
   { name: "Dashboard", href: "/", current: true },
   { name: "Inventory", href: "/inventory", current: false },
   { name: "Purchase Details", href: "/purchase-details", current: false },
-  { name: "Sales", href: "/sales", current: false },
-  { name: "Manage Store", href: "/manage-store", current: false },
+  { name: "---", href: "/sales", current: false },
+  { name: "---", href: "/manage-store", current: false },
 ];
 
 const userNavigation = [{ name: "Sign out", href: "./login" }];
@@ -38,7 +38,7 @@ export default function Header() {
                           alt="Inventory Management System"
                         />
                         <span className="font-bold text-white italic">
-                          Inventory Management
+                            Council
                         </span>
                       </div>
                     </div>
