@@ -1,4 +1,6 @@
 import express from "express"
-import { SignUpController } from "../BackENd/controllers/Signup.js"
+import { LoginController } from "../controllers/Login";
+import { Signup } from "../controllers/Signup";
 export const router = express.Router()
-router.post("/signup",SignUpController);
+router.post("/login",Signup);
+router.post("/signup",LoginController)
