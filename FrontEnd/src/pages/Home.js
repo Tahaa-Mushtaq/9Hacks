@@ -3,7 +3,7 @@ import AddProduct from "../components/AddProduct";
 import UpdateProduct from "../components/UpdateProduct";
 import AuthContext from "../AuthContext";
 
-function Inventory() {
+function Home() {
   const [showProductModal, setShowProductModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [updateProduct, setUpdateProduct] = useState([]);
@@ -286,4 +286,4 @@ function Inventory() {
   );
 }
 
-export default Inventory;
+export default Home;

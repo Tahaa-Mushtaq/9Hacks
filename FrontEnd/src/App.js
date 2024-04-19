@@ -5,7 +5,6 @@ import Dashboard from "./pages/Dashboard";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-import Inventory from "./pages/Inventory";
 import NoPageFound from "./pages/NoPageFound";
 import AuthContext from "./AuthContext";
 import ProtectedWrapper from "./ProtectedWrapper";
@@ -13,6 +12,7 @@ import { useEffect, useState } from "react";
 import Store from "./pages/Store";
 import Sales from "./pages/Sales";
 import PurchaseDetails from "./pages/PurchaseDetails";
+import Home from "./pages/Home";
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -61,7 +61,7 @@ const App = () => {
     <AuthContext.Provider value={value}>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/"
@@ -71,10 +71,9 @@ const App = () => {
               </ProtectedWrapper>
             }
           >
-            <Route index element={<Dashboard />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/purchase-details" element={<PurchaseDetails />} />
-            <Route path="/sales" element={<Sales />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/councillors" element={<Dashboard />} />
+            <Route path="/" element={<Login />} />
             <Route path="/manage-store" element={<Store />} />
           </Route>
           <Route path="*" element={<NoPageFound />} />
