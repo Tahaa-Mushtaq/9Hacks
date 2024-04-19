@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   const [Success,SetSuccess] = useState({});
   const submitHandler = async(e) => {
@@ -8,23 +10,31 @@ function Login() {
       Email:data.get("email"),
       Password:data.get("password")
     }
-    const response = await fetch("http://localhost:5000/api/signup",{
-      method:"POST",
-      body:JSON.stringify(FormDict),
-      headers:{
-        "Content-Type":"application/json"
-      }
-    })
+    const response = await fetch("http://localhost:5000/api/signup", {
+  method: "POST",
+  body: JSON.stringify(FormDict),
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
+
+// Correctly get JSON from the response
+  const responseData = await response.json();  // Use `.json()` instead of `.data.JSON()`
+
+// Logging the message from the response
+  console.log(responseData.message);
+
     if(!response.ok){
-      SetSuccess(response.data);
+      SetSuccess(response.message);
     }else{
-      SetSuccess(response.data);
+      SetSuccess(response.message);
+      toast(responseData.message)
     }
   };
   
   return (
     <>
-    {console.log(Success)}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 h-screen  items-center place-items-center">
         <div className="flex justify-center">
           <img src={require("../assets/signup.jpg")} alt="" />
@@ -57,6 +67,7 @@ function Login() {
                   className="relative block w-full rounded-t-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Email address"
                 />
+                <ToastContainer/>
               </div>
               <div>
                 <label htmlFor="password" className="sr-only">

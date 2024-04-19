@@ -1,7 +1,6 @@
-import { Loginmodel } from "../models/Login.model.js"
+import { Loginmodel } from "../models/Login.model.js";
 export const LoginController = (req,res) => {
     const {Email,Password} = req.body;
-    console.log(Email,Password)
     if(!Email.includes("@srmap.edu.in")){
         return res.status(405).json({message:"UnAuthorized User"});
     }else if(Password.length ==0){
@@ -10,6 +9,7 @@ export const LoginController = (req,res) => {
         const func = async() => {
             try {
                 const user = await Loginmodel.findOne({ "Email": Email });
+                console.log(user.Email,user.Password)
                 if (!user) {
                     return res.status(401).json({ message: "Incorrect email or password" });
                 }
