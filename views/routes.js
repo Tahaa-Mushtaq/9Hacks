@@ -1,4 +1,4 @@
 import express from "express"
-import { SignUpController } from "../controllers/Signup.js"
+import { LoginController } from "../controllers/Login.js";
 export const router = express.Router()
-router.post("/signup",SignUpController);
+router.post("/signup",LoginController);

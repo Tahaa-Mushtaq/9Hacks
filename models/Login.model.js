@@ -9,4 +9,4 @@ const Schema = new mongoose.Schema({
         required:true
     }
 })
-export const SignUpmodel = mongoose.model("Users",Schema);
+export const Loginmodel = mongoose.model("Users",Schema);
