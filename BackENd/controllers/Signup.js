@@ -18,6 +18,7 @@ export const SignUpController = (req,res) => {
             }catch(error){
                 console.log(error);
             }
+            console.log("Success")
         }
         func()
     }
