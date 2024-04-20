@@ -87,8 +87,9 @@ function Home() {
   };
 
   return (
-      <div>
-        <h1>Hello</h1>
+      <div className="flex ">
+        Name : Anirudh <br />
+        work : Councillor <br />
       </div>
   );
 }
