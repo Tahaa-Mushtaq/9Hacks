@@ -3,15 +3,11 @@ import Popups from "../components/Popups";
 import { Calendaly } from "./Calendly";
 
 function Dashboard() {
-  const [handler, setHandler] = useState(null);
-  const [abc , setAbc] = useState(1);
+  const [handler,SetHandler] = useState(false);
+  const clickHandler = () => {
+    SetHandler((e) => !(e));
 
-  // This function updates the state with the counselor ID when an image is clicked
-  const handleClick = (id) => () => {
-    setHandler(id);
-    setAbc(abc+1);
-  };
-
+  }
   return (
     <>
       <div className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4  p-4">
@@ -25,7 +21,7 @@ function Dashboard() {
               src="https://srmap.edu.in/wp-content/uploads/2023/08/srmap-mohua-das.jpg" 
               alt="Ms. Mohua Das" 
               className="rounded cursor-pointer"
-              onClick={handleClick(1)}
+              onClick={clickHandler}
             />
           </div>
         </article>
@@ -40,7 +36,7 @@ function Dashboard() {
               src="https://media.licdn.com/dms/image/D5603AQGs8WL88kNCOQ/profile-displayphoto-shrink_800_800/0/1690527055297?e=2147483647&v=beta&t=DhIkXPBjsPMmqZ_mKOy5bdgXdAaABlPZzg13ga3ONns" 
               alt="Ms. Mani Mounica M" 
               className="rounded cursor-pointer"
-              onClick={handleClick(2) }
+              onClick={clickHandler}
             />
           </div>
         </article>
@@ -55,12 +51,13 @@ function Dashboard() {
               src=""  // Add a valid image source here
               alt="Ms. Alekhya Sankara" 
               className="rounded cursor-pointer"
-              onClick={handleClick(3)}
+              onClick={clickHandler}
             />
           </div>
         </article>
       </div>
-      {handler !== null && <Calendaly/>}
+      {console.log(handler)}
+      {handler && <Calendaly visible={handler} setvisible={SetHandler}/>}
     </>
   );
 }

@@ -1,62 +1,33 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
+import { Form, Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Register() {
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    phoneNumber: "",
-    imageUrl: "",
-  });
-
-  const navigate = useNavigate();
-
-  // Handling Input change for registration form.
-  const handleInputChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  // Register User
-  const registerUser = () => {
-    fetch("http://localhost:4000/api/register", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(form),
-    })
-      .then((result) => {
-        alert("Successfully Registered, Now Login with your details");
-        navigate('/login')
-        
-      })
-      .catch((err) => console.log(err));
-  };
-  // ------------------
-
-  // Uploading image to cloudinary
-  const uploadImage = async (image) => {
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "inventoryapp");
-
-    await fetch("https://api.cloudinary.com/v1_1/ddhayhptm/image/upload", {
-      method: "POST",
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setForm({ ...form, imageUrl: data.url });
-        alert("Image Successfully Uploaded");
-      })
-      .catch((error) => console.log(error));
-  };
-
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    const data = new FormData(e.target);
+    const FormDict= {
+      firtName:data.get("firstName"),
+      LastName:data.get("lastName"),
+      email:data.get("email"),
+      password:data.get("password"),
+      PhoneNumber:data.get("phoneNumber")
+    };
+    try{
+      const response = await fetch("http://localhost:5000/api/signup",{
+      method:"POST",
+      body:JSON.stringify(FormDict),
+      headers:{
+        "Content-Type":"application/json"
+      }
+    })
+        if(!response.ok) throw new Error(response.status);
+    else toast("Success registration")
+
+    }catch(error){
+      console.log("Hello")
+      console.log(error);
+    }
   }
 
   return (
@@ -83,17 +54,14 @@ function Register() {
                   required
                   className="relative block w-full rounded-t-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="First Name"
-                  value={form.firstName}
-                  onChange={handleInputChange}
                 />
+                <ToastContainer/>
                 <input
                   name="lastName"
                   type="text"
                   required
                   className="relative block w-full rounded-t-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Last Name"
-                  value={form.lastName}
-                  onChange={handleInputChange}
                 />
               </div>
               <div>
@@ -105,8 +73,6 @@ function Register() {
                   required
                   className="relative block w-full rounded-t-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Email address"
-                  value={form.email}
-                  onChange={handleInputChange}
                 />
               </div>
               <div>
@@ -118,8 +84,6 @@ function Register() {
                   required
                   className="relative block w-full rounded-b-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Password"
-                  value={form.password}
-                  onChange={handleInputChange}
                 />
               </div>
               <div>
@@ -130,8 +94,6 @@ function Register() {
                   required
                   className="relative block w-full rounded-b-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Phone Number"
-                  value={form.phoneNumber}
-                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -167,7 +129,6 @@ function Register() {
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={registerUser}
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   {/* <LockClosedIcon
