@@ -10,14 +10,13 @@ export const LoginController = (req,res) => {
         const func = async() => {
             try {
                 const user = await  model.findOne({ "Email": Email });
-                console.log(user)
                 if (!user) {
                     return res.status(401).json({ message: "Incorrect email or password" });
                 }
                 if (Password !== user.Password) {
                     return res.status(401).json({ message: "Incorrect email or password" });
                 }
-                return res.status(200).json({ message: "Login successful", user });
+                return res.status(200).json({ message: "Login successful"});
             } catch (error) {
                 console.log(error);
                 return res.status(500).json({ message: "Internal Server Error" });

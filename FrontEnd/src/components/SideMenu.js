@@ -38,27 +38,6 @@ function SideMenu() {
             />
             <span className="text-sm font-medium"> Logout</span>
           </Link>
-          <Link
-            to="/sales"
-            className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-          >
-            <img alt="sale-icon" src={require("../assets/supplier-icon.png")} />
-            <span className="text-sm font-medium">---</span>
-          </Link>
-
-          <details className="group [&_summary::-webkit-details-marker]:hidden">
-            <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-              <Link to="/manage-store">
-                <div className="flex items-center gap-2">
-                  <img
-                    alt="store-icon"
-                    src={require("../assets/order-icon.png")}
-                  />
-                  <span className="text-sm font-medium"> --- </span>
-                </div>
-              </Link>
-            </summary>
-          </details>
         </nav>
       </div>
 

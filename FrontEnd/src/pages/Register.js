@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import UploadImage from "../components/UploadImage";
 
 function Register() {
   const [form, setForm] = useState({
@@ -135,7 +134,6 @@ function Register() {
                   onChange={handleInputChange}
                 />
               </div>
-              <UploadImage uploadImage={uploadImage} />
             </div>
 
             <div className="flex items-center justify-between">

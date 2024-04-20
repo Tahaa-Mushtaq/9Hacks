@@ -9,9 +9,6 @@ import NoPageFound from "./pages/NoPageFound";
 import AuthContext from "./AuthContext";
 import ProtectedWrapper from "./ProtectedWrapper";
 import { useEffect, useState } from "react";
-import Store from "./pages/Store";
-import Sales from "./pages/Sales";
-import PurchaseDetails from "./pages/PurchaseDetails";
 import Home from "./pages/Home";
 
 const App = () => {
@@ -74,7 +71,6 @@ const App = () => {
             <Route path="/Home" element={<Home />} />
             <Route path="/councillors" element={<Dashboard />} />
             <Route path="/" element={<Login />} />
-            <Route path="/manage-store" element={<Store />} />
           </Route>
           <Route path="*" element={<NoPageFound />} />
         </Routes>

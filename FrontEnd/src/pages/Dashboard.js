@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Popups from "../components/Popups";
+import { Calendaly } from "./Calendly";
 
 function Dashboard() {
   const [handler, setHandler] = useState(null);
@@ -59,7 +60,7 @@ function Dashboard() {
           </div>
         </article>
       </div>
-      {handler !== null && <Popups a={handler} b ={abc}/>}
+      {handler !== null && <Calendaly/>}
     </>
   );
 }

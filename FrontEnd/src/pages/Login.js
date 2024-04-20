@@ -1,10 +1,11 @@
 // import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../AuthContext";
-
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   const [Sucess,SetSuccess] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = async(e) => {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -19,10 +20,13 @@ function Login() {
         "Content-Type":"application/json"
       }
     })
+    const responseData = await response.json();
     if(!response.ok){
        SetSuccess(false);
+       toast(responseData.message)
     }else{
-      SetSuccess(true);
+      navigate("/Home")
+      toast(responseData.message);
     }
   };
 
@@ -45,7 +49,6 @@ function Login() {
               Sign-in to your account
             </h2>
           </div>
-          {Sucess && <span>Server Error</span>}
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             {/* <input type="hidden" name="remember" defaultValue="true" /> */}
             <div className="-space-y-px rounded-md shadow-sm">
@@ -78,7 +81,7 @@ function Login() {
                 />
               </div>
             </div>
-
+            <ToastContainer/>
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
